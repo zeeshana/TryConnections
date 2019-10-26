@@ -54,6 +54,31 @@ redirectUrl: `https://twitter.com/oauth/authorize?oauth_token=${req.session.oaut
   });
 });
 
+router.get('/saveAccessTokens', (req, res) => {
+	console.log("calling save access token");
+  consumer.getOAuthAccessToken(
+  req.query.oauth_token,
+  req.session.oauthRequestTokenSecret,
+  req.query.oauth_verifier,
+  (error, oauthAccessToken, oauthAccessTokenSecret, results) => {
+    if (error) {
+      //logger.error(error);
+	  console.log(error);
+      res.send(error, 500);
+    }
+    else {
+		console.log(results);
+      req.session.oauthAccessToken = oauthAccessToken;
+      req.session.oauthAccessTokenSecret = oauthAccessTokenSecret
+	  
+	  // here we have to save the user to back4app api with token.
+	  // next time we will check if user is available in back4app then allow access.
+	  
+      return res.send({ message: 'token saved' });
+    }
+  });
+});
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
