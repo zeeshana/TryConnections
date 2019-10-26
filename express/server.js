@@ -27,6 +27,10 @@ if (result.error) {
   throw result.error
 }
 */
+const corsOptions = {
+  origin: 'https://elated-snyder-eade88.netlify.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 
 const router = express.Router();
@@ -39,7 +43,7 @@ router.get('/', (req, res) => {
 //router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 //router.post('/', (req, res) => res.json({ postBody: req.body }));
 
-router.get('/connect', (req, res) => {
+router.get('/connect', cors(corsOptions) ,(req, res) => {
 	console.log('connect inside');
   consumer.getOAuthRequestToken(function (error, oauthToken,   oauthTokenSecret, results) {
     if (error) {
@@ -79,6 +83,8 @@ router.get('/saveAccessTokens', (req, res) => {
     }
   });
 });
+
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
