@@ -4,7 +4,7 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
-const result = require('dotenv').config();
+//const result = require('dotenv').config();
 
 const oauth = require('oauth');
 const _twitterConsumerKey = process.env.TWITTER_CONSUMER_KEY;
@@ -12,11 +12,18 @@ const _twitterConsumerSecret = process.env.TWITTER_CONSUMER_SECRET;
 const twitterCallbackUrl = process.env.TWITTER_CALLBACK_URL;
 const consumer = new oauth.OAuth("https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token",_twitterConsumerKey, _twitterConsumerSecret, "1.0A", twitterCallbackUrl, "HMAC-SHA1");
 
-
+/*
 if (result.error) {
   throw result.error
 }
-
+*/
+const process.env = 
+{
+"TWITTER_CONSUMER_KEY" : "H4tX5qvfKJP3Vzee9NyV3B405",
+"TWITTER_CONSUMER_SECRET" : "Sa1JL41MHS4fBRj7PWtergE6hvAIn441Tbzx9ZHlYjeNgXu0I1",
+"TWITTER_CALLBACK_URL" : " http://localhost:8100/login",
+"SESSION_SECRET" : "Sa1JL41MHS4fBRj7PWter"
+} 
 const router = express.Router();
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
