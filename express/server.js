@@ -6,18 +6,6 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 //const result = require('dotenv').config();
-
-const oauth = require('oauth');
-const _twitterConsumerKey = process.env.TWITTER_CONSUMER_KEY;
-const _twitterConsumerSecret = process.env.TWITTER_CONSUMER_SECRET;
-const twitterCallbackUrl = process.env.TWITTER_CALLBACK_URL;
-const consumer = new oauth.OAuth("https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token",_twitterConsumerKey, _twitterConsumerSecret, "1.0A", twitterCallbackUrl, "HMAC-SHA1");
-
-/*
-if (result.error) {
-  throw result.error
-}
-*/
 const env = 
 {
 "TWITTER_CONSUMER_KEY" : "H4tX5qvfKJP3Vzee9NyV3B405",
@@ -25,6 +13,19 @@ const env =
 "TWITTER_CALLBACK_URL" : "http://localhost:8100/login",
 "SESSION_SECRET" : "Sa1JL41MHS4fBRj7PWter"
 };
+
+const oauth = require('oauth');
+const _twitterConsumerKey = env.TWITTER_CONSUMER_KEY;
+const _twitterConsumerSecret = env.TWITTER_CONSUMER_SECRET;
+const twitterCallbackUrl = env.TWITTER_CALLBACK_URL;
+const consumer = new oauth.OAuth("https://twitter.com/oauth/request_token", "https://twitter.com/oauth/access_token",_twitterConsumerKey, _twitterConsumerSecret, "1.0A", twitterCallbackUrl, "HMAC-SHA1");
+
+/*
+if (result.error) {
+  throw result.error
+}
+*/
+
 
 const router = express.Router();
 router.get('/', (req, res) => {
