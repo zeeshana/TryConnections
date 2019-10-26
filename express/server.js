@@ -5,6 +5,7 @@ const serverless = require('serverless-http');
 const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 //const result = require('dotenv').config();
 const env = 
 {
@@ -29,19 +30,6 @@ if (result.error) {
 
 const router = express.Router();
 
-
-
-app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
-app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
-
-app.use(session({ secret: env.SESSION_SECRET, resave: false, saveUninitialized: true }));
-app.use((req, res, next) => {
-  res.locals.session = req.session;
-  next();
-});
-
-
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Hello from Express.js!</h1>');
@@ -65,6 +53,20 @@ redirectUrl: `https://twitter.com/oauth/authorize?oauth_token=${req.session.oaut
     }
   });
 });
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(session({ secret: env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
+
+app.use('/.netlify/functions/server', router);  // path must route to lambda
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 
 module.exports = app;
