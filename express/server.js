@@ -34,8 +34,9 @@ router.get('/', (req, res) => {
 });
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
+
 router.get('/connect', (req, res) => {
-	console.log('connect insite');
+	console.log('connect inside');
   consumer.getOAuthRequestToken(function (error, oauthToken,   oauthTokenSecret, results) {
     if (error) {
       res.send(error, 500);
@@ -56,6 +57,10 @@ app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 app.use(session({ secret: env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  next();
+});
 
 module.exports = app;
 module.exports.handler = serverless(app);
