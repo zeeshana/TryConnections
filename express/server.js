@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
+const cors = require('cors');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -79,7 +80,7 @@ router.get('/saveAccessTokens', (req, res) => {
   });
 });
 
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
