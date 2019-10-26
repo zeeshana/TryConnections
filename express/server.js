@@ -6,7 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const result = require('dotenv').config();
 const cors = require('cors');
-const sessions = require('./controllers/sessionsController');
+const sessions = require('../controllers/sessionsController');
 
 if (result.error) {
   throw result.error
