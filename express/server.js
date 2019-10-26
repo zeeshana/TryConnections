@@ -17,13 +17,14 @@ if (result.error) {
   throw result.error
 }
 */
-const process.env = 
+const env = 
 {
 "TWITTER_CONSUMER_KEY" : "H4tX5qvfKJP3Vzee9NyV3B405",
 "TWITTER_CONSUMER_SECRET" : "Sa1JL41MHS4fBRj7PWtergE6hvAIn441Tbzx9ZHlYjeNgXu0I1",
-"TWITTER_CALLBACK_URL" : " http://localhost:8100/login",
+"TWITTER_CALLBACK_URL" : "http://localhost:8100/login",
 "SESSION_SECRET" : "Sa1JL41MHS4fBRj7PWter"
-} 
+};
+
 const router = express.Router();
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -53,7 +54,7 @@ app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+app.use(session({ secret: env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 
 module.exports = app;
 module.exports.handler = serverless(app);
