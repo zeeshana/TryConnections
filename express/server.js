@@ -235,6 +235,8 @@ async function getUserDetails(req,res){
 						person.set("uid", parsedData.id + "");
 						person.set("publishedProfile", true);
 						person.set("role", "user");
+						//person.setACL(new Parse.ACL(Parse.User.current()));
+						person.setACL(new Parse.ACL(user));
 						
 						 person.save().then((response) => {
 							console.log("Person Save :" + response);
