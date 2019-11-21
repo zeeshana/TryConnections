@@ -19,8 +19,8 @@ const env =
 {
 "TWITTER_CONSUMER_KEY" : "H4tX5qvfKJP3Vzee9NyV3B405",
 "TWITTER_CONSUMER_SECRET" : "Sa1JL41MHS4fBRj7PWtergE6hvAIn441Tbzx9ZHlYjeNgXu0I1",
-"TWITTER_CALLBACK_URL" : "https://tryconnections.netlify.com/login",
-//"TWITTER_CALLBACK_URL" : "http://localhost:8100/login",
+//"TWITTER_CALLBACK_URL" : "https://tryconnections.netlify.com/login",
+"TWITTER_CALLBACK_URL" : "http://localhost:8100/login",
 "SESSION_SECRET" : "Sa1JL41MHS4fBRj7PWter"
 };
 
